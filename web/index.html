@@ -1,24 +1,5 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#020100" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="PTG" />
-  <meta name="description" content="PTG：本地优先、可安装、可接入 OpenAI 兼容 API 的个人 AI 工作台。" />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="./assets/icon.svg" />
-  <link rel="stylesheet" href="./styles.css" />
-  <title>PTG · Personal Thinking Ground</title>
-</head>
-<body>
-  <noscript>PTG Web 需要启用 JavaScript。</noscript>
-  <div id="app" class="app-shell" aria-live="polite"></div>
-  <div id="toast-root" class="toast-root" aria-live="assertive"></div>
-  <div id="modal-root"></div>
-  <script type="module" src="./js/app.js"></script>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#020100"><title>PTG Pocket</title><style>
+:root{--b:#020100;--y:#f6cb1d;--u:#0b3289;--o:#ef9d1e;--w:#f5f4f0;--i:#0d1216;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--b);color:var(--w);min-height:100vh;padding:22px}main{max-width:1100px;margin:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.logo{font-weight:1000;font-size:32px;letter-spacing:-3px;color:var(--y)}.sub{color:#aaa;font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pane{border-radius:24px;overflow:hidden;border:1px solid #252525;background:#0b0d11}.bar{padding:13px 15px;background:var(--u);display:flex;justify-content:space-between;align-items:center}.bar b{font-size:13px}.bar span{font-size:11px;color:#d8def2}textarea{width:100%;height:62vh;resize:vertical;border:0;outline:0;padding:22px;background:var(--w);color:var(--i);font:16px/1.8 ui-serif,"Songti SC",serif}.output{height:62vh;overflow:auto;white-space:pre-wrap;padding:22px;line-height:1.75;background:#111722}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}button{border:1px solid #333;background:#111722;color:var(--w);padding:10px 13px;border-radius:12px;font-weight:800}button.main{background:var(--y);color:var(--b);border-color:var(--y)}button.orange{background:var(--o);color:var(--b);border-color:var(--o)}@media(max-width:720px){body{padding:12px}.grid{grid-template-columns:1fr}.output,textarea{height:42vh}}
+</style></head><body><main><div class="head"><div><div class="logo">PTG POCKET</div><div class="sub">一个文件、离线可用、没有账号依赖</div></div><button id="save" class="main">保存本地</button></div><div class="tools"><button data-tool="summary">摘要</button><button data-tool="outline">提纲</button><button data-tool="shorten">精简</button><button data-tool="clean">清理格式</button><button data-tool="table">转表格</button><button id="copy" class="orange">复制结果</button><button id="download">导出 TXT</button></div><div class="grid"><section class="pane"><div class="bar"><b>输入</b><span id="count">0 字</span></div><textarea id="input" placeholder="把文章、报告、聊天记录或草稿粘贴到这里……"></textarea></section><section class="pane"><div class="bar"><b>结果</b><span>离线规则处理</span></div><div id="output" class="output">PTG Pocket 已就绪。</div></section></div></main><script>
+const i=document.querySelector('#input'),o=document.querySelector('#output'),c=document.querySelector('#count');i.value=localStorage.getItem('ptg-pocket')||'';const s=t=>t.replace(/\s+/g,' ').split(/(?<=[。！？.!?])\s*/).filter(Boolean);function run(k){let t=i.value.trim(),a=s(t);if(!t)return o.textContent='请先输入内容。';if(k==='summary')o.textContent=a.slice(0,6).map((x,n)=>`${n+1}. ${x}`).join('\n');if(k==='outline')o.textContent=a.slice(0,20).map((x,n)=>`${n+1}. ${x.replace(/[。！？.!?]+$/,'')}`).join('\n');if(k==='shorten')o.textContent=t.split(/\n{2,}/).map(p=>s(p)[0]||p).join('\n\n');if(k==='clean')o.textContent=t.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').replace(/，{2,}/g,'，').replace(/。{2,}/g,'。');if(k==='table')o.textContent='| 序号 | 内容 |\n|---:|---|\n'+t.split('\n').filter(Boolean).map((x,n)=>`| ${n+1} | ${x.replace(/\|/g,'\\|')} |`).join('\n')}document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>run(b.dataset.tool));i.oninput=()=>c.textContent=(i.value.match(/[\u4e00-\u9fa5]|\b\w+\b/g)||[]).length+' 字';i.oninput();document.querySelector('#save').onclick=()=>{localStorage.setItem('ptg-pocket',i.value);alert('已保存在当前浏览器')};document.querySelector('#copy').onclick=()=>navigator.clipboard.writeText(o.textContent);document.querySelector('#download').onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([o.textContent],{type:'text/plain'}));a.download='PTG-Pocket.txt';a.click()};
+</script></body></html>
