@@ -1,0 +1,21 @@
+{
+  "name": "PTG · Personal Thinking Ground",
+  "short_name": "PTG",
+  "description": "本地优先、可安装、可接入 OpenAI 兼容 API 的个人 AI 工作台。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020100",
+  "theme_color": "#020100",
+  "orientation": "any",
+  "lang": "zh-CN",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    { "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./assets/maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "开始写作", "url": "./?tab=writing", "icons": [{ "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }] },
+    { "name": "打开文件库", "url": "./?tab=files", "icons": [{ "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }] }
+  ]
+}
