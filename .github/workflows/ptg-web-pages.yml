@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'web/**'
+      - '.ptg-package/**'
       - '.github/workflows/ptg-web-pages.yml'
   workflow_dispatch:
 
@@ -25,10 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Restore PTG Web package
+        run: |
+          mkdir -p .build/site
+          cat .ptg-package/chunk_* | tr -d '\n\r' | base64 --decode > .build/ptg-web.zip
+          unzip -q .build/ptg-web.zip -d .build/site
+          test -f .build/site/web/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web
+          path: .build/site/web
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
